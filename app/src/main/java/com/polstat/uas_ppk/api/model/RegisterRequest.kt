@@ -1,8 +1,7 @@
 package com.polstat.uas_ppk.api.model
 
-data class AuthResponse(
+data class RegisterRequest(
     val name: String,
     val email: String,
-    val role: String,
-    val accessToken: String
+    val password: String
 )

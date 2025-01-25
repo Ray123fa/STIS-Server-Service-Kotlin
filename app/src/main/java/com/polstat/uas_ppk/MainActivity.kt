@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.polstat.uas_ppk.data.UserPreferences
 import com.polstat.uas_ppk.ui.screens.HomeScreen
 import com.polstat.uas_ppk.ui.screens.LoginScreen
+import com.polstat.uas_ppk.ui.screens.RegisterScreen
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -20,14 +21,15 @@ class MainActivity : ComponentActivity() {
 
         // Gunakan coroutine untuk cek token
         lifecycleScope.launch {
-            val token = userPreferences.accessToken.first()
-            val startDestination = if (token != null) "home" else "login"
+            val userData = userPreferences.userData.first()
+            val startDestination = if (userData != null) "home" else "login"
 
             setContent {
                 val navController = rememberNavController()
 
                 NavHost(navController = navController, startDestination = startDestination) {
                     composable("login") { LoginScreen(navController) }
+                    composable("register") { RegisterScreen(navController) }
                     composable("home") { HomeScreen() }
                 }
             }

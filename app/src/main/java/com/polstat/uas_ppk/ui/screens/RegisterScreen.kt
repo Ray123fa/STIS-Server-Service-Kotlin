@@ -26,18 +26,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.polstat.uas_ppk.data.UserPreferences
 import com.polstat.uas_ppk.viewmodel.AuthViewModel
-import kotlinx.coroutines.launch
 
 @Composable
-fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = viewModel()) {
+fun RegisterScreen(navController: NavController, authViewModel: AuthViewModel = viewModel()) {
+    var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var confirmPasswordVisible by remember { mutableStateOf(false) }
     val context = LocalContext.current
-    val userPreferences = remember { UserPreferences(context) }
-    val coroutineScope = rememberCoroutineScope()
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(
@@ -60,7 +59,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
         Spacer(modifier = Modifier.height(52.dp))
 
         Text(
-            text = "Selamat Datang",
+            text = "Buat Akun Baru",
             textAlign = TextAlign.Left,
             modifier = Modifier.fillMaxWidth(),
             fontSize = 30.sp,
@@ -76,6 +75,20 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
         )
 
         Spacer(modifier = Modifier.height(24.dp))
+
+        // Input Nama
+        OutlinedTextField(
+            value = name,
+            onValueChange = { name = it },
+            label = { Text("Nama") },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Next
+            )
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         // Input Email
         OutlinedTextField(
@@ -106,6 +119,27 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
                 }
             },
             keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Next
+            )
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Input Konfirmasi Password
+        OutlinedTextField(
+            value = confirmPassword,
+            onValueChange = { confirmPassword = it },
+            label = { Text("Konfirmasi Password") },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            trailingIcon = {
+                val image = if (confirmPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                IconButton(onClick = { confirmPasswordVisible = !confirmPasswordVisible }) {
+                    Icon(imageVector = image, contentDescription = "Toggle Password Visibility")
+                }
+            },
+            keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done
             ),
             keyboardActions = KeyboardActions(
@@ -115,19 +149,20 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Tombol Login dengan Toast
+        // Tombol Register
         Button(
             onClick = {
-                authViewModel.login(email, password) { result, token, name, userEmail, role ->
-                    Log.d("LoginResult", result)
-                    Toast.makeText(context, result, Toast.LENGTH_LONG).show()
+                if (password != confirmPassword) {
+                    Toast.makeText(context, "Password tidak cocok!", Toast.LENGTH_LONG).show()
+                } else {
+                    authViewModel.register(name, email, password) { result, success ->
+                        Log.d("RegisterResult", result)
+                        Toast.makeText(context, result, Toast.LENGTH_LONG).show()
 
-                    if (token != null && name != null && userEmail != null && role != null) {
-                        coroutineScope.launch {
-                            userPreferences.saveUserData(token, name, userEmail, role)
-                        }
-                        navController.navigate("home") {
-                            popUpTo("login") { inclusive = true } // Tidak bisa kembali ke login
+                        if (success) {
+                            navController.navigate("login") {
+                                popUpTo("register") { inclusive = true } // Tidak bisa kembali ke register
+                            }
                         }
                     }
                 }
@@ -138,21 +173,21 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5A49F8)),
             shape = RoundedCornerShape(8.dp)
         ) {
-            Text(text = "Masuk", color = Color.White, fontSize = 18.sp)
+            Text(text = "Daftar", color = Color.White, fontSize = 18.sp)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Row {
-            Text("Belum punya akun?", fontSize = 16.sp, color = Color.Gray)
+            Text("Sudah punya akun?", fontSize = 16.sp, color = Color.Gray)
             Spacer(modifier = Modifier.width(4.dp))
             Text(
-                text = "Daftar di sini!",
+                text = "Masuk di sini!",
                 fontSize = 16.sp,
                 color = Color(0xFF3B82F6),
                 modifier = Modifier.clickable {
-                    navController.navigate("register") {
-                        popUpTo("login") { inclusive = true } // Tidak bisa kembali ke login
+                    navController.navigate("login") {
+                        popUpTo("register") { inclusive = true } // Tidak bisa kembali ke login
                     }
                 }
             )
