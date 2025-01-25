@@ -38,6 +38,7 @@ fun RegisterScreen(navController: NavController, authViewModel: AuthViewModel = 
     var confirmPasswordVisible by remember { mutableStateOf(false) }
     val context = LocalContext.current
     val keyboardController = LocalSoftwareKeyboardController.current
+    val isLoading by authViewModel.isLoading
 
     Column(
         modifier = Modifier
@@ -174,9 +175,17 @@ fun RegisterScreen(navController: NavController, authViewModel: AuthViewModel = 
                 .fillMaxWidth()
                 .height(50.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5A49F8)),
-            shape = RoundedCornerShape(8.dp)
+            shape = RoundedCornerShape(8.dp),
+            enabled = !isLoading
         ) {
-            Text(text = "Daftar", color = Color.White, fontSize = 18.sp, fontFamily = Quicksand)
+            if (isLoading) {
+                CircularProgressIndicator(
+                    color = Color.White,
+                    modifier = Modifier.size(24.dp) // Ukuran lebih kecil untuk dalam tombol
+                )
+            } else {
+                Text(text = "Daftar", color = Color.White, fontSize = 18.sp, fontFamily = Quicksand)
+            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))

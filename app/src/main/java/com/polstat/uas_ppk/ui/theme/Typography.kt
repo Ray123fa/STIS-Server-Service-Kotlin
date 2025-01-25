@@ -1,11 +1,9 @@
 package com.polstat.uas_ppk.ui.theme
 
 import androidx.compose.material3.Typography
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 import com.polstat.uas_ppk.R
 
 // Define Quicksand FontFamily
@@ -17,81 +15,20 @@ val Quicksand = FontFamily(
     Font(R.font.quicksand_bold, FontWeight.Bold)
 )
 
-// Apply Quicksand to Material 3 Typography
 val AppTypography = Typography(
-    displayLarge = TextStyle(
-        fontFamily = Quicksand,
-        fontWeight = FontWeight.Bold,
-        fontSize = 57.sp
-    ),
-    displayMedium = TextStyle(
-        fontFamily = Quicksand,
-        fontWeight = FontWeight.Bold,
-        fontSize = 45.sp
-    ),
-    displaySmall = TextStyle(
-        fontFamily = Quicksand,
-        fontWeight = FontWeight.Bold,
-        fontSize = 36.sp
-    ),
-    headlineLarge = TextStyle(
-        fontFamily = Quicksand,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 32.sp
-    ),
-    headlineMedium = TextStyle(
-        fontFamily = Quicksand,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 28.sp
-    ),
-    headlineSmall = TextStyle(
-        fontFamily = Quicksand,
-        fontWeight = FontWeight.Medium,
-        fontSize = 24.sp
-    ),
-    titleLarge = TextStyle(
-        fontFamily = Quicksand,
-        fontWeight = FontWeight.Medium,
-        fontSize = 22.sp
-    ),
-    titleMedium = TextStyle(
-        fontFamily = Quicksand,
-        fontWeight = FontWeight.Medium,
-        fontSize = 16.sp
-    ),
-    titleSmall = TextStyle(
-        fontFamily = Quicksand,
-        fontWeight = FontWeight.Medium,
-        fontSize = 14.sp
-    ),
-    bodyLarge = TextStyle(
-        fontFamily = Quicksand,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
-    ),
-    bodyMedium = TextStyle(
-        fontFamily = Quicksand,
-        fontWeight = FontWeight.Normal,
-        fontSize = 14.sp
-    ),
-    bodySmall = TextStyle(
-        fontFamily = Quicksand,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
-    ),
-    labelLarge = TextStyle(
-        fontFamily = Quicksand,
-        fontWeight = FontWeight.Medium,
-        fontSize = 14.sp
-    ),
-    labelMedium = TextStyle(
-        fontFamily = Quicksand,
-        fontWeight = FontWeight.Medium,
-        fontSize = 12.sp
-    ),
-    labelSmall = TextStyle(
-        fontFamily = Quicksand,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp
-    )
+    displayLarge = Typography().displayLarge.copy(fontFamily = Quicksand),
+    displayMedium = Typography().displayMedium.copy(fontFamily = Quicksand),
+    displaySmall = Typography().displaySmall.copy(fontFamily = Quicksand),
+    headlineLarge = Typography().headlineLarge.copy(fontFamily = Quicksand),
+    headlineMedium = Typography().headlineMedium.copy(fontFamily = Quicksand),
+    headlineSmall = Typography().headlineSmall.copy(fontFamily = Quicksand),
+    titleLarge = Typography().titleLarge.copy(fontFamily = Quicksand),
+    titleMedium = Typography().titleMedium.copy(fontFamily = Quicksand),
+    titleSmall = Typography().titleSmall.copy(fontFamily = Quicksand),
+    bodyLarge = Typography().bodyLarge.copy(fontFamily = Quicksand),
+    bodyMedium = Typography().bodyMedium.copy(fontFamily = Quicksand),
+    bodySmall = Typography().bodySmall.copy(fontFamily = Quicksand),
+    labelLarge = Typography().labelLarge.copy(fontFamily = Quicksand),
+    labelMedium = Typography().labelMedium.copy(fontFamily = Quicksand),
+    labelSmall = Typography().labelSmall.copy(fontFamily = Quicksand)
 )

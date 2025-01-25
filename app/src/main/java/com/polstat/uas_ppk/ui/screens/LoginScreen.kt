@@ -40,6 +40,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
     val userPreferences = remember { UserPreferences(context) }
     val coroutineScope = rememberCoroutineScope()
     val keyboardController = LocalSoftwareKeyboardController.current
+    val isLoading by authViewModel.isLoading
 
     Column(
         modifier = Modifier
@@ -140,9 +141,17 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
                 .fillMaxWidth()
                 .height(50.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5A49F8)),
-            shape = RoundedCornerShape(8.dp)
+            shape = RoundedCornerShape(8.dp),
+            enabled = !isLoading
         ) {
-            Text(text = "Masuk", color = Color.White, fontSize = 18.sp, fontFamily = Quicksand)
+            if (isLoading) {
+                CircularProgressIndicator(
+                    color = Color.White,
+                    modifier = Modifier.size(24.dp) // Ukuran lebih kecil untuk dalam tombol
+                )
+            } else {
+                Text(text = "Masuk", color = Color.White, fontSize = 18.sp, fontFamily = Quicksand)
+            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))

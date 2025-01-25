@@ -40,7 +40,9 @@ fun TopBar(title: String, scaffoldState: ScaffoldState, navController: NavContro
                     onDismissRequest = { expanded = false }
                 ) {
                     DropdownMenuItem(onClick = {
-                        Toast.makeText(context, "Navigasi ke Edit Profile", Toast.LENGTH_SHORT).show()
+                        navController.navigate("profile") {
+                            popUpTo("profile") { inclusive = true }
+                        }
                     }) {
                         Icon(Icons.Filled.Edit, contentDescription = null)
                         Spacer(Modifier.width(8.dp))

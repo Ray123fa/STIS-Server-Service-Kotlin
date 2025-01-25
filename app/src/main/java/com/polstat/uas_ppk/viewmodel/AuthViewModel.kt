@@ -1,16 +1,19 @@
 package com.polstat.uas_ppk.viewmodel
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.polstat.uas_ppk.api.RetrofitClient
-import com.polstat.uas_ppk.api.model.AuthRequest
-import com.polstat.uas_ppk.api.model.RegisterRequest
+import com.polstat.uas_ppk.api.model.*
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class AuthViewModel : ViewModel() {
+    var isLoading = mutableStateOf(false)
+
     fun login(email: String, password: String, onResult: (String, String?, String?, String?, String?) -> Unit) {
         viewModelScope.launch {
+            isLoading.value = true
             try {
                 val response = RetrofitClient.instance.login(AuthRequest(email, password))
                 if (response.isSuccessful) {
@@ -24,6 +27,7 @@ class AuthViewModel : ViewModel() {
             } catch (e: Exception) {
                 onResult("Terjadi kesalahan saat login.", null, null, null, null)
             }
+            isLoading.value = false
         }
     }
 
@@ -34,6 +38,7 @@ class AuthViewModel : ViewModel() {
         onResult: (message: String, success: Boolean) -> Unit
     ) {
         viewModelScope.launch {
+            isLoading.value = true
             try {
                 val response: Response<Map<String, Any>> = RetrofitClient.instance.register(RegisterRequest(name, email, password))
 
@@ -51,8 +56,73 @@ class AuthViewModel : ViewModel() {
                     onResult("Registrasi Gagal: ${response.message()}", false)
                 }
             } catch (e: Exception) {
-                onResult("Error: ${e.message}", false)
+                onResult("Terjadi kesalahan saat registrasi.", false)
             }
+            isLoading.value = false
+        }
+    }
+
+    fun updatePassword(
+        token: String,
+        currentPassword: String,
+        newPassword: String,
+        confirmPassword: String,
+        onResult: (message: String, success: Boolean) -> Unit
+    ) {
+        viewModelScope.launch {
+            isLoading.value = true
+            try {
+                val response: Response<Map<String, Any>> = RetrofitClient.instance.updatePassword(
+                    token = "Bearer $token", // Format Bearer Token
+                    request = UpdatePasswordRequest(currentPassword, newPassword, confirmPassword)
+                )
+
+                val responseBody = response.body()
+                val status = responseBody?.get("status") as? String
+                val message = responseBody?.get("message") as? String
+
+                if (response.isSuccessful) {
+                    if (status == "success") {
+                        onResult(message ?: "Password berhasil diperbarui.", true)
+                    }
+                } else {
+                    onResult("Password saat ini tidak sesuai.", false)
+                }
+            } catch (e: Exception) {
+                onResult("Terjadi kesalahan saat memperbarui password.", false)
+            }
+            isLoading.value = false
+        }
+    }
+
+    fun updateEmail(
+        token: String,
+        newEmail: String,
+        onResult: (message: String, success: Boolean) -> Unit
+    ) {
+        viewModelScope.launch {
+            isLoading.value = true
+            try {
+                val response: Response<Map<String, Any>> = RetrofitClient.instance.updateEmail(
+                    token = "Bearer $token",
+                    request = UpdateEmailRequest(newEmail)
+                )
+
+                val responseBody = response.body()
+                val status = responseBody?.get("status") as? String
+                val message = responseBody?.get("message") as? String
+
+                if (response.isSuccessful) {
+                    if (status == "success") {
+                        onResult(message ?: "Email berhasil diperbarui.", true)
+                    }
+                } else {
+                    onResult("Gagal memperbarui email.", false)
+                }
+            } catch (e: Exception) {
+                onResult("Terjadi kesalahan saat memperbarui email.", false)
+            }
+            isLoading.value = false
         }
     }
 }

@@ -8,9 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.polstat.uas_ppk.data.UserPreferences
-import com.polstat.uas_ppk.ui.screens.HomeScreen
-import com.polstat.uas_ppk.ui.screens.LoginScreen
-import com.polstat.uas_ppk.ui.screens.RegisterScreen
+import com.polstat.uas_ppk.ui.screens.*
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -31,6 +29,8 @@ class MainActivity : ComponentActivity() {
                     composable("login") { LoginScreen(navController) }
                     composable("register") { RegisterScreen(navController) }
                     composable("home") { HomeScreen(navController) }
+                    composable("profile") { ProfileScreen(navController) }
+
                 }
             }
         }
