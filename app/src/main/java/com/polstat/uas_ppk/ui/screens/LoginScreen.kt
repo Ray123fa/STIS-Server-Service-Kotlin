@@ -7,10 +7,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.polstat.uas_ppk.data.UserPreferences
+import com.polstat.uas_ppk.ui.theme.Quicksand
 import com.polstat.uas_ppk.viewmodel.AuthViewModel
 import kotlinx.coroutines.launch
 
@@ -51,6 +52,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
         // Judul
         Text(
             text = "Layanan Pengajuan Akses Server STIS",
+            fontFamily = Quicksand,
             fontSize = 32.sp,
             textAlign = TextAlign.Left,
             modifier = Modifier.fillMaxWidth(),
@@ -61,6 +63,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
 
         Text(
             text = "Selamat Datang",
+            fontFamily = Quicksand,
             textAlign = TextAlign.Left,
             modifier = Modifier.fillMaxWidth(),
             fontSize = 30.sp,
@@ -69,6 +72,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
 
         Text(
             text = "Lengkapi isian berikut.",
+            fontFamily = Quicksand,
             fontSize = 16.sp,
             modifier = Modifier.fillMaxWidth(),
             color = Color.Gray,
@@ -81,7 +85,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email") },
+            label = { Text("Email", fontFamily = Quicksand) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -95,7 +99,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") },
+            label = { Text("Password", fontFamily = Quicksand) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -138,16 +142,17 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5A49F8)),
             shape = RoundedCornerShape(8.dp)
         ) {
-            Text(text = "Masuk", color = Color.White, fontSize = 18.sp)
+            Text(text = "Masuk", color = Color.White, fontSize = 18.sp, fontFamily = Quicksand)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Row {
-            Text("Belum punya akun?", fontSize = 16.sp, color = Color.Gray)
+            Text("Belum punya akun?", fontSize = 16.sp, color = Color.Gray, fontFamily = Quicksand)
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = "Daftar di sini!",
+                fontFamily = Quicksand,
                 fontSize = 16.sp,
                 color = Color(0xFF3B82F6),
                 modifier = Modifier.clickable {

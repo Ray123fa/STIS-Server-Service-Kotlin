@@ -7,10 +7,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.polstat.uas_ppk.ui.theme.Quicksand
 import com.polstat.uas_ppk.viewmodel.AuthViewModel
 
 @Composable
@@ -50,6 +50,7 @@ fun RegisterScreen(navController: NavController, authViewModel: AuthViewModel = 
         // Judul
         Text(
             text = "Layanan Pengajuan Akses Server STIS",
+            fontFamily = Quicksand,
             fontSize = 32.sp,
             textAlign = TextAlign.Left,
             modifier = Modifier.fillMaxWidth(),
@@ -60,6 +61,7 @@ fun RegisterScreen(navController: NavController, authViewModel: AuthViewModel = 
 
         Text(
             text = "Buat Akun Baru",
+            fontFamily = Quicksand,
             textAlign = TextAlign.Left,
             modifier = Modifier.fillMaxWidth(),
             fontSize = 30.sp,
@@ -68,6 +70,7 @@ fun RegisterScreen(navController: NavController, authViewModel: AuthViewModel = 
 
         Text(
             text = "Lengkapi isian berikut.",
+            fontFamily = Quicksand,
             fontSize = 16.sp,
             modifier = Modifier.fillMaxWidth(),
             color = Color.Gray,
@@ -80,7 +83,7 @@ fun RegisterScreen(navController: NavController, authViewModel: AuthViewModel = 
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
-            label = { Text("Nama") },
+            label = { Text("Nama", fontFamily = Quicksand) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -94,7 +97,7 @@ fun RegisterScreen(navController: NavController, authViewModel: AuthViewModel = 
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email") },
+            label = { Text("Email", fontFamily = Quicksand) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -108,7 +111,7 @@ fun RegisterScreen(navController: NavController, authViewModel: AuthViewModel = 
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") },
+            label = { Text("Password", fontFamily = Quicksand) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -129,7 +132,7 @@ fun RegisterScreen(navController: NavController, authViewModel: AuthViewModel = 
         OutlinedTextField(
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
-            label = { Text("Konfirmasi Password") },
+            label = { Text("Konfirmasi Password", fontFamily = Quicksand) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -173,16 +176,17 @@ fun RegisterScreen(navController: NavController, authViewModel: AuthViewModel = 
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5A49F8)),
             shape = RoundedCornerShape(8.dp)
         ) {
-            Text(text = "Daftar", color = Color.White, fontSize = 18.sp)
+            Text(text = "Daftar", color = Color.White, fontSize = 18.sp, fontFamily = Quicksand)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Row {
-            Text("Sudah punya akun?", fontSize = 16.sp, color = Color.Gray)
+            Text("Sudah punya akun?", fontSize = 16.sp, color = Color.Gray, fontFamily = Quicksand)
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = "Masuk di sini!",
+                fontFamily = Quicksand,
                 fontSize = 16.sp,
                 color = Color(0xFF3B82F6),
                 modifier = Modifier.clickable {
