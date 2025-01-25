@@ -1,6 +1,7 @@
 package com.polstat.uas_ppk.ui.components
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -11,6 +12,7 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -25,7 +27,8 @@ import kotlinx.coroutines.launch
 fun DrawerContent(
     navController: NavController,
     onMenuClick: (String) -> Unit,
-    onLogout: () -> Unit
+    onLogout: () -> Unit,
+    selectedItem: String = "Dashboard"
 ) {
     Column(
         modifier = Modifier
@@ -40,15 +43,17 @@ fun DrawerContent(
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        DrawerItem(text = "Dashboard", icon = Icons.Filled.Home, onClick = {
+        DrawerItem(text = "Dashboard", icon = Icons.Filled.Home, isSelected = selectedItem == "Dashboard", onClick = {
             navController.navigate("home") {
                 popUpTo("home") { inclusive = true }
             }
         })
-        DrawerItem(text = "Settings", icon = Icons.Filled.Settings, onClick = {
-            onMenuClick("Settings")
+        DrawerItem(text = "Settings", icon = Icons.Filled.Settings, isSelected = selectedItem == "Settings", onClick = {
+            navController.navigate("profile") {
+                popUpTo("profile") { inclusive = true }
+            }
         })
-        DrawerItem(text = "Help", icon = Icons.AutoMirrored.Filled.Help, onClick = {
+        DrawerItem(text = "Help", icon = Icons.AutoMirrored.Filled.Help, isSelected = selectedItem == "Help", onClick = {
             onMenuClick("Help")
         })
 
@@ -59,22 +64,25 @@ fun DrawerContent(
 }
 
 @Composable
-fun DrawerItem(text: String, icon: ImageVector, onClick: () -> Unit) {
+fun DrawerItem(text: String, icon: ImageVector, isSelected: Boolean = false, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(12.dp),
+            .height(45.dp)
+            .then(if (isSelected) Modifier.background(Color.Gray.copy(alpha = 0.3f)) else Modifier),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        Spacer(modifier = Modifier.width(4.dp))
         Icon(icon, contentDescription = text, modifier = Modifier.size(24.dp))
         Spacer(modifier = Modifier.width(16.dp))
         Text(text, fontSize = 18.sp, fontFamily = Quicksand)
+        Spacer(modifier = Modifier.width(4.dp))
     }
 }
 
 @Composable
-fun ParentScreen(navController: NavController) {
+fun ParentScreen(navController: NavController, selectedItem: String = "Dashboard") {
     val context = LocalContext.current
     val userPreferences = remember { UserPreferences(context) }
     val coroutineScope = rememberCoroutineScope()
@@ -91,6 +99,7 @@ fun ParentScreen(navController: NavController) {
                     popUpTo("home") { inclusive = true }
                 }
             }
-        }
+        },
+        selectedItem = selectedItem
     )
 }

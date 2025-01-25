@@ -16,8 +16,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.polstat.uas_ppk.data.UserPreferences
 import com.polstat.uas_ppk.ui.components.*
-import com.polstat.uas_ppk.ui.theme.PurpleGrey40
-import com.polstat.uas_ppk.ui.theme.Quicksand
+import com.polstat.uas_ppk.ui.theme.*
 import com.polstat.uas_ppk.utils.Helper
 
 @Composable
@@ -35,7 +34,7 @@ fun HomeScreen(navController: NavController) {
     Scaffold(
         scaffoldState = scaffoldState,
         drawerContent = {
-            ParentScreen(navController)
+            ParentScreen(navController, selectedItem = "Dashboard")
         },
         topBar = {
             TopBar(title = "Dashboard", scaffoldState, navController, userPreferences)

@@ -20,9 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.input.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,12 +29,8 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.polstat.uas_ppk.data.UserPreferences
 import com.polstat.uas_ppk.ui.components.*
-import com.polstat.uas_ppk.ui.theme.Purple80
-import com.polstat.uas_ppk.ui.theme.PurpleGrey40
-import com.polstat.uas_ppk.ui.theme.Quicksand
+import com.polstat.uas_ppk.ui.theme.*
 import com.polstat.uas_ppk.viewmodel.AuthViewModel
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @Composable
@@ -61,7 +55,7 @@ fun ProfileScreen(navController: NavController) {
     Scaffold(
         scaffoldState = scaffoldState,
         drawerContent = {
-            ParentScreen(navController)
+            ParentScreen(navController, selectedItem = "Settings")
         },
         topBar = {
             TopBar(title = "Profile", scaffoldState, navController, userPreferences)
@@ -348,7 +342,7 @@ fun SectionTitle(title: String) {
 
 @Composable
 fun SectionDescription(description: String) {
-    Text(description, fontFamily = Quicksand, textAlign = TextAlign.Left, fontSize = 14.sp, color = Color.White.copy(alpha = 0.8f))
+    Text(description, fontFamily = Quicksand, textAlign = TextAlign.Justify, fontSize = 14.sp, color = Color.White.copy(alpha = 0.8f))
 }
 
 @Composable
