@@ -30,6 +30,11 @@ fun DrawerContent(
     onLogout: () -> Unit,
     selectedItem: String = "Dashboard"
 ) {
+    val context = LocalContext.current
+    val userPreferences = remember { UserPreferences(context) }
+    val userData by userPreferences.userData.collectAsState(initial = null)
+    val role = userData?.role ?: "MAHASISWA" // Default role USER jika null
+
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -48,13 +53,21 @@ fun DrawerContent(
                 popUpTo("home") { inclusive = true }
             }
         })
+
+        when(role) {
+            "ADMINISTRATOR" -> {
+                DrawerItem(text = "User Management", icon = Icons.Filled.ManageAccounts, isSelected = selectedItem == "User Management", onClick = {
+                    navController.navigate("user_management") {
+                        popUpTo("user_management") { inclusive = true }
+                    }
+                })
+            }
+        }
+
         DrawerItem(text = "Settings", icon = Icons.Filled.Settings, isSelected = selectedItem == "Settings", onClick = {
             navController.navigate("profile") {
                 popUpTo("profile") { inclusive = true }
             }
-        })
-        DrawerItem(text = "Help", icon = Icons.AutoMirrored.Filled.Help, isSelected = selectedItem == "Help", onClick = {
-            onMenuClick("Help")
         })
 
         Spacer(modifier = Modifier.weight(1f))
