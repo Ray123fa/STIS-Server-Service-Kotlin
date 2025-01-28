@@ -62,6 +62,19 @@ fun DrawerContent(
                     }
                 })
             }
+
+            "MAHASISWA" -> {
+                DrawerItem(text = "Ajukan Server", icon = Icons.Filled.Cloud, isSelected = selectedItem == "Server Request", onClick = {
+                    navController.navigate("server_request") {
+                        popUpTo("server_request") { inclusive = true }
+                    }
+                })
+                DrawerItem(text = "Riwayat Pengajuan", icon = Icons.Default.History, isSelected = selectedItem == "Riwayat Pengajuan", onClick = {
+                    navController.navigate("request_history") {
+                        popUpTo("request_history") { inclusive = true }
+                    }
+                })
+            }
         }
 
         DrawerItem(text = "Settings", icon = Icons.Filled.Settings, isSelected = selectedItem == "Settings", onClick = {

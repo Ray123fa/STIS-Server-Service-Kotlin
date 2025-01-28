@@ -33,4 +33,13 @@ interface ApiService {
         @Header("Authorization") token: String, // Bearer Token
         @Query("email") email: String
     ): Response<Map<String, Any>>
+
+    @POST("api/server/request")
+    suspend fun requestServer(
+        @Header("Authorization") token: String, // Bearer Token
+        @Body request: MyServerRequest
+    ): Response<Map<String, Any>>
+
+    @GET("api/server/my-requests")
+    suspend fun getServerRequests(@Header("Authorization") token: String): Response<MyServerResponse>
 }

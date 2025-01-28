@@ -23,6 +23,8 @@ import androidx.navigation.NavController
 import com.polstat.uas_ppk.api.model.User
 import com.polstat.uas_ppk.data.UserPreferences
 import com.polstat.uas_ppk.ui.components.ParentScreen
+import com.polstat.uas_ppk.ui.components.TableCell
+import com.polstat.uas_ppk.ui.components.TableHeaderItem
 import com.polstat.uas_ppk.ui.components.TopBar
 import com.polstat.uas_ppk.ui.theme.PurpleGrey40
 import com.polstat.uas_ppk.ui.theme.Quicksand
@@ -66,9 +68,7 @@ fun UserListScreen(navController: NavController, adminViewModel: AdminViewModel 
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            Spacer(modifier = Modifier.height(8.dp))
             UserTable(navController, userList, isLoading, adminViewModel)
-            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
@@ -87,7 +87,7 @@ fun UserTable(navController: NavController, userList: List<User>, isLoading: Boo
             backgroundColor = PurpleGrey40
         ) {
             Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-                Text("Daftar Pengguna", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                Text("Daftar Pengguna", fontFamily = Quicksand, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.White)
                 Spacer(modifier = Modifier.height(8.dp))
                 Divider(color = Color.Gray.copy(alpha = 0.5f))
                 Spacer(modifier = Modifier.height(8.dp))
@@ -110,13 +110,6 @@ fun UserTable(navController: NavController, userList: List<User>, isLoading: Boo
             }
         }
     }
-}
-
-// Komponen Header Tabel
-@Composable
-fun TableHeaderItem(text: String, modifier: Modifier) {
-    Text(text, fontWeight = FontWeight.Bold, color = Color.White, fontSize = 14.sp, modifier = modifier)
-    Spacer(modifier = Modifier.width(4.dp))
 }
 
 // Komponen Row Tabel
@@ -158,7 +151,7 @@ fun TableRow(navController: NavController, index: Int, user: User, adminViewMode
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },
-            title = { Text("Delete Confirmation") },
+            title = { Text("Delete Confirmation", fontFamily = Quicksand) },
             text = { Text(buildAnnotatedString {
                 append("Apakah Anda yakin ingin menghapus user dengan email ")
                 withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
@@ -173,38 +166,23 @@ fun TableRow(navController: NavController, index: Int, user: User, adminViewMode
                             Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
 
                             if (success) {
-                                navController.navigate("user_management") {
-                                    popUpTo("user_management") { inclusive = true }
-                                }
+                                navController.popBackStack()
                             }
                         }
                         showDialog = false
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
                 ) {
-                    Text("Hapus", color = Color.White)
+                    Text("Hapus", fontFamily = Quicksand, color = Color.White)
                 }
             },
             dismissButton = {
                 Button(onClick = { showDialog = false }) {
-                    Text("Batal")
+                    Text("Batal", fontFamily = Quicksand)
                 }
             }
         )
     }
-}
-
-// Komponen Sel Tabel
-@Composable
-fun TableCell(text: String, modifier: Modifier) {
-    Text(
-        text,
-        fontSize = 14.sp,
-        color = Color.White,
-        fontFamily = Quicksand,
-        modifier = modifier
-    )
-    Spacer(modifier = Modifier.width(4.dp))
 }
 
 // Komponen Tombol Aksi
@@ -215,6 +193,6 @@ fun ActionButton(text: String, backgroundColor: Color, onClick: () -> Unit) {
         modifier = Modifier.fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
     ) {
-        Text(text, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color.White)
+        Text(text, fontFamily = Quicksand, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color.White)
     }
 }

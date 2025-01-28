@@ -31,6 +31,8 @@ class MainActivity : ComponentActivity() {
                     composable("home") { HomeScreen(navController) }
                     composable("profile") { ProfileScreen(navController) }
                     composable("user_management") { UserListScreen(navController) }
+                    composable("server_request") { ServerRequestScreen(navController) }
+                    composable("request_history") { ServerRequestHistoryScreen(navController) }
                 }
             }
         }

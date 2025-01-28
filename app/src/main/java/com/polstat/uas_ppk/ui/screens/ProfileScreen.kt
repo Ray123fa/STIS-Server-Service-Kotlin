@@ -38,7 +38,6 @@ fun ProfileScreen(navController: NavController) {
     val context = LocalContext.current
     val userPreferences = remember { UserPreferences(context) }
     val scaffoldState = rememberScaffoldState()
-    val coroutineScope = rememberCoroutineScope()
 
     val userData by userPreferences.userData.collectAsState(initial = null)
 
