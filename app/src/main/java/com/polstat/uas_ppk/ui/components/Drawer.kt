@@ -88,6 +88,12 @@ fun DrawerContent(
             }
         })
 
+        DrawerItem(text = "About", icon = Icons.Filled.Info, isSelected = selectedItem == "About", onClick = {
+            navController.navigate("about") {
+                popUpTo("about") { inclusive = true }
+            }
+        })
+
         Spacer(modifier = Modifier.weight(1f))
 
         DrawerItem(text = "Logout", icon = Icons.AutoMirrored.Filled.ExitToApp, onClick = onLogout)

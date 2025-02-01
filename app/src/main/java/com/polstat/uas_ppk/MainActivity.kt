@@ -34,6 +34,7 @@ class MainActivity : ComponentActivity() {
                     composable("server_request") { ServerRequestScreen(navController) }
                     composable("request_history") { ServerRequestHistoryScreen(navController) }
                     composable("all_request_history") { AllServerRequestsHistoryScreen(navController) }
+                    composable("about") { AboutScreen(navController) }
                 }
             }
         }
