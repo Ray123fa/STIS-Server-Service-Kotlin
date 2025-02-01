@@ -61,6 +61,11 @@ fun DrawerContent(
                         popUpTo("user_management") { inclusive = true }
                     }
                 })
+                DrawerItem(text = "Daftar Pengajuan", icon = Icons.Filled.Cloud, isSelected = selectedItem == "Daftar Pengajuan", onClick = {
+                    navController.navigate("all_request_history") {
+                        popUpTo("all_request_history") { inclusive = true }
+                    }
+                })
             }
 
             "MAHASISWA" -> {

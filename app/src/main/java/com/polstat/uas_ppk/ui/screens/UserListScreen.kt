@@ -22,10 +22,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.polstat.uas_ppk.api.model.User
 import com.polstat.uas_ppk.data.UserPreferences
-import com.polstat.uas_ppk.ui.components.ParentScreen
-import com.polstat.uas_ppk.ui.components.TableCell
-import com.polstat.uas_ppk.ui.components.TableHeaderItem
-import com.polstat.uas_ppk.ui.components.TopBar
+import com.polstat.uas_ppk.ui.components.*
 import com.polstat.uas_ppk.ui.theme.PurpleGrey40
 import com.polstat.uas_ppk.ui.theme.Quicksand
 import com.polstat.uas_ppk.viewmodel.AdminViewModel
@@ -138,10 +135,7 @@ fun TableRow(navController: NavController, index: Int, user: User, adminViewMode
             modifier = Modifier.weight(1f),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            ActionButton(text = "Edit", backgroundColor = Color(0xFF4CAF50)) {
-                Toast.makeText(context, "Anda mengklik Edit pada ${user.name}", Toast.LENGTH_SHORT).show()
-            }
-            ActionButton(text = "Delete", backgroundColor = Color(0xFFD32F2F)) {
+            ActionButton(text = "Delete", bgColor = Color(0xFFD32F2F)) {
                 showDialog = true
             }
         }
@@ -182,17 +176,5 @@ fun TableRow(navController: NavController, index: Int, user: User, adminViewMode
                 }
             }
         )
-    }
-}
-
-// Komponen Tombol Aksi
-@Composable
-fun ActionButton(text: String, backgroundColor: Color, onClick: () -> Unit) {
-    Button(
-        onClick = onClick,
-        modifier = Modifier.fillMaxWidth(),
-        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
-    ) {
-        Text(text, fontFamily = Quicksand, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color.White)
     }
 }

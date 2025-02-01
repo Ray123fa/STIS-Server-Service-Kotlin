@@ -37,9 +37,29 @@ interface ApiService {
     @POST("api/server/request")
     suspend fun requestServer(
         @Header("Authorization") token: String, // Bearer Token
-        @Body request: MyServerRequest
+        @Body purpose: MyServerRequest
     ): Response<Map<String, Any>>
 
     @GET("api/server/my-requests")
-    suspend fun getServerRequests(@Header("Authorization") token: String): Response<MyServerResponse>
+    suspend fun getMyServerRequests(
+        @Header("Authorization") token: String
+    ): Response<MyServerResponse>
+
+    @GET("api/server/requests")
+    suspend fun getAllServerRequests(
+        @Header("Authorization") token: String
+    ): Response<AllServerResponse>
+
+    @PATCH("api/server/request/{id}/approve")
+    suspend fun approveServerRequest(
+        @Header("Authorization") token: String,
+        @Path("id") requestId: Int
+    ): Response<ApproveResponse>
+
+    @PATCH("api/server/request/{id}/reject")
+    suspend fun rejectServerRequest(
+        @Header("Authorization") token: String,
+        @Path("id") requestId: Int,
+        @Body reason: RejectRequest
+    ): Response<Map<String, Any>>
 }

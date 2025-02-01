@@ -19,10 +19,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.polstat.uas_ppk.api.model.ServerRequest
 import com.polstat.uas_ppk.data.UserPreferences
-import com.polstat.uas_ppk.ui.components.ParentScreen
-import com.polstat.uas_ppk.ui.components.TableCell
-import com.polstat.uas_ppk.ui.components.TableHeaderItem
-import com.polstat.uas_ppk.ui.components.TopBar
+import com.polstat.uas_ppk.ui.components.*
 import com.polstat.uas_ppk.ui.theme.PurpleGrey40
 import com.polstat.uas_ppk.ui.theme.Quicksand
 import com.polstat.uas_ppk.viewmodel.ServerViewModel
@@ -41,7 +38,7 @@ fun ServerRequestHistoryScreen(navController: NavController, serverViewModel: Se
     LaunchedEffect(Unit) {
         coroutineScope.launch {
             userPreferences.userData.collect { userData ->
-                userData?.let { serverViewModel.fetchServerRequests(it.accessToken) }
+                userData?.let { serverViewModel.fetchMyServerRequests(it.accessToken) }
             }
         }
     }
